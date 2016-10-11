@@ -41,41 +41,6 @@ class ListAdapter extends BaseAdapter {
         TextView title = (TextView)vi.findViewById(R.id.title); // title
         String array[] = activity.getResources().getStringArray(R.array.titles);
         title.setText(array[position]);
-        switch (position){
-            case 0:
-                title.setText(array[position]);
-                break;
-            case 1:
-                title.setText("");
-                break;
-            case 2:
-                title.setText("Wombo Combo");
-                break;
-            case 3:
-                title.setText("Sarude Dankstorm");
-                break;
-            case 4:
-                title.setText("Get noscoped");
-                break;
-            case 5:
-                title.setText("Taktikal Nuke");
-                break;
-            case 6:
-                title.setText("Damn son");
-                break;
-            case 7:
-                title.setText("Lurminerty");
-                break;
-            case 8:
-                title.setText("A triple");
-                break;
-            case 9:
-                title.setText("WOW");
-                break;
-            case 10:
-                title.setText("Smoke weed errday");
-                break;
-        }
         // Setting all values in listview
 
         return vi;
