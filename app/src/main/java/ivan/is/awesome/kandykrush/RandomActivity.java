@@ -20,7 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class RandomActivity extends FragmentActivity{
-    public MediaPlayer mp[] = new MediaPlayer[11];
+    public MediaPlayer mp[] = new MediaPlayer[14];
     public ImageButton stopButton, playButton;
     public Animation rotation;
     public ImageView bg;
@@ -92,6 +92,9 @@ public class RandomActivity extends FragmentActivity{
         mp[8]=(MediaPlayer.create(this, R.raw.triple));
         mp[9]=(MediaPlayer.create(this, R.raw.wow));
         mp[10]=(MediaPlayer.create(this, R.raw.weed));
+        mp[11]=(MediaPlayer.create(this, R.raw.sanic));
+        mp[12]=(MediaPlayer.create(this, R.raw.mmsay));
+        mp[13]=(MediaPlayer.create(this, R.raw.wam));
     }
 
     @Override

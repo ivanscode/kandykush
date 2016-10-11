@@ -4,27 +4,27 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.graphics.PorterDuff;
 import android.media.AudioManager;
 import android.os.Bundle;
-import android.view.MotionEvent;
+import android.os.Handler;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 
-public class FullscreenActivity extends Activity{
+public class SplashScreen extends Activity{
 
-
-    ImageButton startButton;
     TextView version;
+    private static int SPLASH_TIME_OUT = 1500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fullscreen);
+        ProgressBar spinner;
+        spinner = (ProgressBar)findViewById(R.id.progressBar2);
+        spinner.setVisibility(View.VISIBLE);
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
-        startButton = (ImageButton)findViewById(R.id.startButton);
         PackageInfo pInfo = null;
         try {
             pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
@@ -34,25 +34,24 @@ public class FullscreenActivity extends Activity{
         String versionName = pInfo.versionName;
         version = (TextView)findViewById(R.id.version);
         version.setText("v"+versionName);
-        startButton.setOnTouchListener(new View.OnTouchListener() {
+        new Handler().postDelayed(new Runnable() {
+
+            /*
+             * Showing splash screen with a timer. This will be useful when you
+             * want to show case your app logo / company
+             */
+
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch(event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        v.getBackground().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
-                        return true; // if you want to handle the touch event
-                    case MotionEvent.ACTION_UP:
-                        v.getBackground().clearColorFilter();
-                        getBoard(v);
-                        return true; // if you want to handle the touch event
-                }
-                return false;
+            public void run() {
+                // This method will be executed once the timer is over
+                // Start your app main activity
+                Intent i = new Intent(SplashScreen.this, RandomActivity.class);
+                startActivity(i);
+
+                // close this activity
+                finish();
             }
-        });
-    }
-    public void getBoard(View view) {
-        Intent intent = new Intent(this, RandomActivity.class);
-        startActivity(intent);
+        }, SPLASH_TIME_OUT);
     }
     @Override
     public void onBackPressed() {
