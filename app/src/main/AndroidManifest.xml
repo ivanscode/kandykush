@@ -22,7 +22,6 @@
             android:name=".activity.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize">
         </activity>
-
     </application>
 
 </manifest>

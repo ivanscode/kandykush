@@ -17,12 +17,11 @@ import ivan.is.awesome.kandykrush.R;
 public class SplashScreen extends Activity{
 
     TextView version;
-    private static int SPLASH_TIME_OUT = 500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fullscreen);
+        setContentView(R.layout.splash_layout);
         ProgressBar spinner;
         spinner = (ProgressBar)findViewById(R.id.progressBar2);
         spinner.setVisibility(View.VISIBLE);
@@ -36,6 +35,7 @@ public class SplashScreen extends Activity{
         String versionName = pInfo.versionName;
         version = (TextView)findViewById(R.id.version);
         version.setText("v"+versionName);
+        int SPLASH_TIME_OUT = 500;
         new Handler().postDelayed(new Runnable() {
 
             /*

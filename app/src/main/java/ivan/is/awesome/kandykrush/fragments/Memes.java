@@ -40,9 +40,9 @@ public class Memes extends Fragment {
     }
     public void stopMedia(){
         boolean check = false;
-        for(int x=0; x<mp.length; x++){
-            if(mp[x].isPlaying()){
-                check=true;
+        for (MediaPlayer aMp : mp) {
+            if (aMp.isPlaying()) {
+                check = true;
             }
         }
         if(check) {

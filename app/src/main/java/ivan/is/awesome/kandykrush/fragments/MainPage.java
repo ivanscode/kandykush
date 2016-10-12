@@ -4,7 +4,6 @@ import android.graphics.PorterDuff;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -106,8 +105,8 @@ public class MainPage extends Fragment {
     public void stopMedia(){
         if(!inProgress) {
             boolean check = false;
-            for (int x = 0; x < mp.length; x++) {
-                if (mp[x].isPlaying()) {
+            for (MediaPlayer aMp : mp) {
+                if (aMp.isPlaying()) {
                     check = true;
                 }
             }
