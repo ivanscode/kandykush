@@ -1,12 +1,13 @@
 package ivan.is.awesome.kandykrush;
 
+import android.app.Activity;
 import android.graphics.PorterDuff;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,14 +18,16 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 
-public class RandomActivity extends FragmentActivity{
-    public MediaPlayer mp[] = new MediaPlayer[11];
+public class RandomActivity extends Activity {
+    public MediaPlayer[] mp;
     public ImageButton stopButton, playButton;
     public Animation rotation;
     public ImageView bg;
     public TextView above;
+    ArrayList<String> titles = new ArrayList<>();
 
 
     @Override
@@ -32,8 +35,7 @@ public class RandomActivity extends FragmentActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_random);
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
-        Toast toast = Toast.makeText(this, "Tap xxx_Luminati_xxx for Meme Madness or slide from the right side for more fun", Toast.LENGTH_LONG);
-        toast.show();
+        titles.add("stop");
         setupMedia();
         buttonSetup();
         drawerSetup();
@@ -45,14 +47,16 @@ public class RandomActivity extends FragmentActivity{
 
         ListView mDrawerList = (ListView) findViewById(R.id.left_drawer);
         DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        // Set the adapter for the list view
-        mDrawerList.setAdapter(new ListAdapter(this, mp));
-        // Set the list's click listener
+        mDrawerList.setAdapter(new ListAdapter(this, mp, titles));
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                mp[position].start();
-                bg.startAnimation(rotation);
+                if(titles.get(position).equals("stop")){
+                    stopMedia();
+                }else{
+                    mp[position-1].start();
+                    bg.startAnimation(rotation);
+                }
             }
         });
         ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(
@@ -61,14 +65,12 @@ public class RandomActivity extends FragmentActivity{
                 R.string.title,  /* "open drawer" description */
                 R.string.title  /* "close drawer" description */
         ) {
-
             /**
              * Called when a drawer has settled in a completely closed state.
              */
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
             }
-
             /**
              * Called when a drawer has settled in a completely open state.
              */
@@ -78,20 +80,20 @@ public class RandomActivity extends FragmentActivity{
         };
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.addDrawerListener(mDrawerToggle);
+        mDrawerLayout.openDrawer(Gravity.RIGHT);
     }
 
     public void setupMedia() {
-        mp[0]=(MediaPlayer.create(this, R.raw.camera));
-        mp[1]=(MediaPlayer.create(this, R.raw.never));
-        mp[2]=(MediaPlayer.create(this, R.raw.combo));
-        mp[3]=(MediaPlayer.create(this, R.raw.dankstorm));
-        mp[4]=(MediaPlayer.create(this, R.raw.noscope));
-        mp[5]=(MediaPlayer.create(this, R.raw.nuke));
-        mp[6]=(MediaPlayer.create(this, R.raw.son));
-        mp[7]=(MediaPlayer.create(this, R.raw.spooky));
-        mp[8]=(MediaPlayer.create(this, R.raw.triple));
-        mp[9]=(MediaPlayer.create(this, R.raw.wow));
-        mp[10]=(MediaPlayer.create(this, R.raw.weed));
+        Field[] fields = R.raw.class.getFields();
+        // loop for every file in raw folder
+        mp = new MediaPlayer[fields.length];
+        for(int x=0; x < fields.length; x++) {
+            String filename = fields[x].getName();
+            mp[x] = MediaPlayer.create(this, getResources().getIdentifier(filename, "raw", this.getPackageName()));
+            filename = filename.substring(0, 1).toUpperCase() + filename.substring(1);
+            filename = filename.replace("_", " ");
+            titles.add(filename);
+        }
     }
 
     @Override
@@ -129,7 +131,7 @@ public class RandomActivity extends FragmentActivity{
                         mp[(int)(Math.random()*10)].start();
                         bg.startAnimation(rotation);
                         String st[] = getResources().getStringArray(R.array.phrases);
-                        above.setText(st[(int)(Math.random()*8)]);
+                        above.setText(st[(int)(Math.random()*st.length)]);
                         return true;
                 }
                 return false;
@@ -160,23 +162,34 @@ public class RandomActivity extends FragmentActivity{
                         return true;
                     case MotionEvent.ACTION_UP:
                         v.getBackground().clearColorFilter();
-                        new Thread(new Runnable() {
-                            public void run() {
-                                for (int x = 0; x < mp.length; x++) {
-                                    if (mp[x].isPlaying()) {
-                                        mp[x].stop();
-                                    }
-                                    mp[x].release();
-                                    mp[x]=null;
-                                }
-                                setupMedia();
-                            }
-                        }).start();
+                        stopMedia();
                         bg.clearAnimation();
                         return true;
                 }
                 return false;
             }
         });
+    }
+    public void stopMedia(){
+        boolean check = false;
+        for(int x=0; x<mp.length; x++){
+            if(mp[x].isPlaying()){
+                check=true;
+            }
+        }
+        if(check) {
+            new Thread(new Runnable() {
+                public void run() {
+                    for (int x = 0; x < mp.length; x++) {
+                        if (mp[x].isPlaying()) {
+                            mp[x].stop();
+                        }
+                        mp[x].release();
+                        mp[x] = null;
+                    }
+                    setupMedia();
+                }
+            }).start();
+        }
     }
 }

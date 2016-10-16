@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
-    tools:context="ivan.is.awesome.kandykrush.FullscreenActivity">
+    tools:context="ivan.is.awesome.kandykrush.SplashScreen">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
@@ -52,13 +52,14 @@
         android:layout_alignLeft="@+id/textView"
         android:layout_alignStart="@+id/textView" />
 
-    <ImageButton
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:id="@+id/startButton"
-        android:background="@drawable/play"
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="21dp"
+        android:id="@+id/progressBar2" />
 
     <TextView
         android:text='""'
@@ -67,10 +68,12 @@
         android:id="@+id/version"
         android:fontFamily="monospace"
         android:textColor="@android:color/holo_green_light"
+        android:layout_marginTop="21dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="20dp" />
+        android:layout_marginRight="15dp"
+        android:layout_marginEnd="15dp" />
 
 
     <!-- This FrameLayout insets its children based on system windows using
