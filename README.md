@@ -1,4 +1,4 @@
-KandyKush (Version 2.1)
+KandyKush (Version 2.2)
 
 The app is available on the Google Play store (https://play.google.com/store/apps/details?id=ivan.is.awesome.kandykrush)
 
