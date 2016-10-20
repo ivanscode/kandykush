@@ -1,4 +1,4 @@
-package ivan.is.awesome.kandykrush;
+package ivan.is.awesome.kandykrush.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -11,11 +11,13 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import ivan.is.awesome.kandykrush.R;
+
 
 public class SplashScreen extends Activity{
 
     TextView version;
-    private static int SPLASH_TIME_OUT = 1500;
+    private static int SPLASH_TIME_OUT = 500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +47,7 @@ public class SplashScreen extends Activity{
             public void run() {
                 // This method will be executed once the timer is over
                 // Start your app main activity
-                Intent i = new Intent(SplashScreen.this, RandomActivity.class);
+                Intent i = new Intent(SplashScreen.this, MainActivity.class);
                 startActivity(i);
 
                 // close this activity

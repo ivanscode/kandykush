@@ -1,4 +1,4 @@
-package ivan.is.awesome.kandykrush;
+package ivan.is.awesome.kandykrush.activity;
 
 import android.app.Activity;
 import android.graphics.PorterDuff;
@@ -20,6 +20,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+
+import ivan.is.awesome.kandykrush.utils.ListAdapter;
+import ivan.is.awesome.kandykrush.R;
 
 public class RandomActivity extends Activity {
     public MediaPlayer[] mp;
@@ -54,7 +57,7 @@ public class RandomActivity extends Activity {
                 if(titles.get(position).equals("stop")){
                     stopMedia();
                 }else{
-                    mp[position-1].start();
+                    mp[position].start();
                     bg.startAnimation(rotation);
                 }
             }
@@ -193,3 +196,4 @@ public class RandomActivity extends Activity {
         }
     }
 }
+

@@ -1,6 +1,7 @@
-package ivan.is.awesome.kandykrush;
+package ivan.is.awesome.kandykrush.utils;
 
         import android.app.Activity;
+        import android.app.Fragment;
         import android.content.Context;
         import android.media.MediaPlayer;
         import android.view.LayoutInflater;
@@ -11,7 +12,9 @@ package ivan.is.awesome.kandykrush;
 
         import java.util.ArrayList;
 
-class ListAdapter extends BaseAdapter {
+        import ivan.is.awesome.kandykrush.R;
+
+public class ListAdapter extends BaseAdapter {
 
     private Activity activity;
     private MediaPlayer data[];
@@ -19,7 +22,7 @@ class ListAdapter extends BaseAdapter {
     private ArrayList<String> titles = new ArrayList<>();
 
 
-    ListAdapter(Activity a, MediaPlayer[] d, ArrayList<String> t){
+    public ListAdapter(Activity a, MediaPlayer[] d, ArrayList<String> t){
         activity = a;
         data=d;
         titles = t;
@@ -44,7 +47,7 @@ class ListAdapter extends BaseAdapter {
         } else{
             convertView = inflater.inflate(R.layout.drawer_layout, null);
             TextView title = (TextView)convertView.findViewById(R.id.title); // title
-            title.setText(titles.get(position));
+            title.setText(titles.get(position+1));
         }
         return convertView;
     }
