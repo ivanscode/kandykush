@@ -1,9 +1,6 @@
 package ivan.is.awesome.kandykrush.fragments;
 
-import android.app.Activity;
-import android.content.Context;
 import android.media.MediaPlayer;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
