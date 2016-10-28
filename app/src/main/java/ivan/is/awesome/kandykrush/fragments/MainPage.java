@@ -13,10 +13,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-
 import ivan.is.awesome.kandykrush.R;
 
 public class MainPage extends Fragment {

@@ -35,7 +35,7 @@ public class SplashScreen extends Activity{
         String versionName = pInfo.versionName;
         version = (TextView)findViewById(R.id.version);
         version.setText("v"+versionName);
-        int SPLASH_TIME_OUT = 500;
+        int SPLASH_TIME_OUT = 250;
         new Handler().postDelayed(new Runnable() {
 
             /*

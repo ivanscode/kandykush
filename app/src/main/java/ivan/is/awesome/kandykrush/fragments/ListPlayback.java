@@ -1,6 +1,9 @@
 package ivan.is.awesome.kandykrush.fragments;
 
+import android.app.Activity;
+import android.content.Context;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -15,50 +18,24 @@ import java.util.ArrayList;
 import ivan.is.awesome.kandykrush.R;
 import ivan.is.awesome.kandykrush.utils.ListAdapter;
 
-public class Memes extends Fragment {
+public class ListPlayback extends Fragment {
 
     public MediaPlayer[] mp;
     ArrayList<String> titles = new ArrayList<>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.drawer_layout, container, false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.meme_frag_layout, container, false);
         ListView mDrawerList = (ListView) rootView.findViewById(R.id.left_drawer);
         setupMedia();
-        titles.add("stop");
         mDrawerList.setAdapter(new ListAdapter(getActivity(), mp, titles));
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(titles.get(position).equals("stop")){
-                    stopMedia();
-                }else{
-                    mp[position].start();
-                }
+                mp[position].start();
+
             }
         });
         return rootView;
-    }
-    public void stopMedia(){
-        boolean check = false;
-        for (MediaPlayer aMp : mp) {
-            if (aMp.isPlaying()) {
-                check = true;
-            }
-        }
-        if(check) {
-            new Thread(new Runnable() {
-                public void run() {
-                    for (int x = 0; x < mp.length; x++) {
-                        if (mp[x].isPlaying()) {
-                            mp[x].stop();
-                        }
-                        mp[x].release();
-                        mp[x] = null;
-                    }
-                    stopMedia();
-                }
-            }).start();
-        }
     }
     public void setupMedia() {
         Field[] fields = R.raw.class.getFields();

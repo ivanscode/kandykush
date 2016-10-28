@@ -42,13 +42,9 @@ public class ListAdapter extends BaseAdapter {
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
-        if(titles.get(position).equals("stop")){
-            convertView = inflater.inflate(R.layout.drawer_top, null);
-        } else{
             convertView = inflater.inflate(R.layout.drawer_layout, null);
             TextView title = (TextView)convertView.findViewById(R.id.title); // title
-            title.setText(titles.get(position+1));
-        }
+            title.setText(titles.get(position));
         return convertView;
     }
 }
