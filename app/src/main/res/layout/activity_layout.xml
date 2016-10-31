@@ -12,13 +12,4 @@ android:layout_height="match_parent">
         android:layout_height="match_parent" />
 
 
-<android.support.design.widget.FloatingActionButton
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="bottom|right"
-    android:layout_margin="16dp"
-    android:src="@drawable/stop"
-    android:id="@+id/fab"
-    app:layout_anchorGravity="bottom|right|end"
-    app:backgroundTint="@android:color/holo_red_light" />
 </android.support.design.widget.CoordinatorLayout>
